@@ -32,6 +32,7 @@ Personalized crypto investor dashboard with onboarding, AI insight, and feedback
 
 Backend `.env`:
 - `APP_SECRET_KEY`
+- `DATABASE_URL` (optional: Supabase Postgres connection string)
 - `ACCESS_TOKEN_EXPIRE_MINUTES`
 - `CRYPTOPANIC_TOKEN` (optional)
 - `OPENROUTER_API_KEY` or `HUGGINGFACE_API_KEY` (optional)

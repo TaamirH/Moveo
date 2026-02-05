@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -28,9 +29,11 @@ async def dashboard(
             "content_preferences": current_user.profile.content_preferences or [],
         }
 
-    news = await get_news(assets)
-    prices = await get_prices(assets)
-    ai_insight = await get_ai_insight(profile)
+    news, prices, ai_insight = await asyncio.gather(
+        get_news(assets),
+        get_prices(assets),
+        get_ai_insight(profile),
+    )
     meme = get_meme()
 
     return {

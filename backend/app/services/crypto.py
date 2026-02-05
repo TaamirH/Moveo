@@ -21,8 +21,7 @@ def normalize_assets(assets):
     ids = []
     for asset in assets or []:
         key = asset.strip().lower()
-        if key in COINGECKO_MAP:
-            ids.append(COINGECKO_MAP[key])
+        ids.append(COINGECKO_MAP.get(key, key))
     if not ids:
         ids = ["bitcoin", "ethereum"]
     return sorted(list(set(ids)))
