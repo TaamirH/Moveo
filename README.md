@@ -35,6 +35,7 @@ Backend `.env`:
 - `DATABASE_URL` (optional: Supabase Postgres connection string)
 - `ACCESS_TOKEN_EXPIRE_MINUTES`
 - `CRYPTOPANIC_TOKEN` (optional)
+- `COINGECKO_API_KEY` (optional, helps avoid rate limits)
 - `OPENROUTER_API_KEY` or `HUGGINGFACE_API_KEY` (optional)
 - `OPENROUTER_MODEL` / `HUGGINGFACE_MODEL` (optional)
 

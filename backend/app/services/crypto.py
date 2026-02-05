@@ -1,4 +1,6 @@
+import os
 import time
+import asyncio
 import httpx
 
 
@@ -127,9 +129,16 @@ async def get_prices(assets):
 
     url = "https://api.coingecko.com/api/v3/simple/price"
     params = {"ids": ",".join(ids), "vs_currencies": "usd"}
+    headers = {"User-Agent": "crypto-advisor-demo/1.0"}
+    api_key = os.getenv("COINGECKO_API_KEY")
+    if api_key:
+        headers["x-cg-demo-api-key"] = api_key
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            resp = await client.get(url, params=params)
+            resp = await client.get(url, params=params, headers=headers)
+            if resp.status_code == 429:
+                await asyncio.sleep(1)
+                resp = await client.get(url, params=params, headers=headers)
             resp.raise_for_status()
             data = resp.json()
         _LAST_PRICES = {coin: data.get(coin, {}) for coin in ids}
