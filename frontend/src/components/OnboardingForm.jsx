@@ -48,6 +48,7 @@ const OnboardingForm = ({ onComplete }) => {
             onChange={(e) => setAssets(e.target.value)}
             placeholder="BTC, ETH, SOL"
           />
+          <span className="muted">Use popular tickers like BTC, ETH, SOL, ADA.</span>
         </label>
         <label>
           Investor type

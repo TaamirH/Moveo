@@ -53,6 +53,18 @@ label {
   text-align: left;
 }
 
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  margin-bottom: 8px;
+  color: #e6e9f2;
+  font-size: 0.95rem;
+}
+
 input,
 select {
   padding: 10px 12px;

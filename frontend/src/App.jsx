@@ -28,7 +28,7 @@ const App = () => {
 
   return (
     <div className="page">
-      <Dashboard onLogout={logout} />
+      <Dashboard onLogout={logout} userName={user?.name} />
     </div>
   );
 };

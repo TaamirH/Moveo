@@ -12,7 +12,7 @@ const FeedbackButtons = ({ onVote }) => (
   </div>
 );
 
-const Dashboard = ({ onLogout }) => {
+const Dashboard = ({ onLogout, userName }) => {
   const { dashboard, loading, loadDashboard, sendFeedback } = useDashboard();
 
   useEffect(() => {
@@ -23,12 +23,15 @@ const Dashboard = ({ onLogout }) => {
     return <div className="card">Loading your dashboard...</div>;
   }
 
-  const { news, prices, ai_insight, meme } = dashboard;
+  const { news, prices, ai_insight, ai_source, meme } = dashboard;
 
   return (
     <div className="dashboard">
       <header className="topbar">
-        <h1>Daily Crypto Brief</h1>
+        <div>
+          <h1>Daily Crypto Brief</h1>
+          {userName && <p className="muted">Welcome back, {userName}.</p>}
+        </div>
         <button className="link" type="button" onClick={onLogout}>
           Logout
         </button>
@@ -75,6 +78,7 @@ const Dashboard = ({ onLogout }) => {
         <section className="card">
           <h3>AI Insight</h3>
           <p>{ai_insight}</p>
+          <p className="muted">Source: {ai_source}</p>
           <FeedbackButtons
             onVote={(vote) =>
               sendFeedback({ content_type: "ai", content_id: ai_insight.slice(0, 50), vote })
@@ -86,6 +90,7 @@ const Dashboard = ({ onLogout }) => {
           <div className="meme">
             <img src={meme.url} alt={meme.title} />
             <p className="muted">{meme.title}</p>
+            <p className="muted">Source: {meme.source}</p>
           </div>
           <FeedbackButtons
             onVote={(vote) =>

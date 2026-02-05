@@ -16,10 +16,19 @@ const AuthForm = ({ onLogin, onRegister }) => {
       if (mode === "login") {
         await onLogin({ email: form.email, password: form.password });
       } else {
+        if (form.password.length < 6) {
+          setError("Password must be at least 6 characters.");
+          return;
+        }
+        if (!/[A-Z]/.test(form.password) || !/[a-z]/.test(form.password) || !/[0-9]/.test(form.password)) {
+          setError("Password must include uppercase, lowercase, and a number.");
+          return;
+        }
         await onRegister(form);
       }
     } catch (err) {
-      setError("Authentication failed. Please try again.");
+      const message = err?.response?.data?.detail;
+      setError(message || "Authentication failed. Please try again.");
     }
   };
 
@@ -48,6 +57,9 @@ const AuthForm = ({ onLogin, onRegister }) => {
             required
           />
         </label>
+        {mode === "register" && (
+          <p className="muted">At least 6 chars, with uppercase, lowercase, and a number.</p>
+        )}
         {error && <p className="error">{error}</p>}
         <button type="submit" className="primary">
           {mode === "login" ? "Login" : "Create Account"}
