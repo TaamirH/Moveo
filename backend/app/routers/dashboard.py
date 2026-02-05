@@ -29,16 +29,18 @@ async def dashboard(
             "content_preferences": current_user.profile.content_preferences or [],
         }
 
-    news, prices, ai_insight = await asyncio.gather(
+    news, prices, ai_result, meme = await asyncio.gather(
         get_news(assets),
         get_prices(assets),
         get_ai_insight(profile),
+        get_meme(),
     )
-    meme = get_meme()
+    ai_insight, ai_source = ai_result
 
     return {
         "news": news,
         "prices": prices,
         "ai_insight": ai_insight,
+        "ai_source": ai_source,
         "meme": meme,
     }

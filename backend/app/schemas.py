@@ -32,6 +32,7 @@ class DashboardResponse(BaseModel):
     news: list
     prices: dict
     ai_insight: str
+    ai_source: str
     meme: dict
 
 

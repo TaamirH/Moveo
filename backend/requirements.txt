@@ -4,7 +4,10 @@ sqlalchemy
 passlib[bcrypt]
 python-jose
 pydantic
+email-validator
 httpx
 python-multipart
 python-dotenv
 psycopg2-binary
+bcrypt==3.2.2
+feedparser

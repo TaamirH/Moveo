@@ -30,7 +30,7 @@ def _build_prompt(profile):
 
 async def _openrouter(prompt: str) -> str:
     api_key = os.getenv("OPENROUTER_API_KEY")
-    model = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.1-8b-instruct:free")
+    model = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.1-8b-instruct")
     if not api_key:
         return ""
     url = "https://openrouter.ai/api/v1/chat/completions"
@@ -69,9 +69,13 @@ async def _huggingface(prompt: str) -> str:
     return ""
 
 
-async def get_ai_insight(profile: dict) -> str:
+async def get_ai_insight(profile: dict):
     prompt = _build_prompt(profile)
     insight = await _openrouter(prompt)
     if not insight:
         insight = await _huggingface(prompt)
-    return insight or FALLBACK_INSIGHT
+        if insight:
+            return insight, "huggingface"
+    if insight:
+        return insight, "openrouter"
+    return FALLBACK_INSIGHT, "fallback"

@@ -1,3 +1,4 @@
+import re
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -9,8 +10,20 @@ from ..auth import hash_password, verify_password, create_access_token, get_curr
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
+def _validate_password(password: str) -> None:
+    if len(password) < 6:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Password too short")
+    if not re.search(r"[A-Z]", password):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Password needs an uppercase letter")
+    if not re.search(r"[a-z]", password):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Password needs a lowercase letter")
+    if not re.search(r"[0-9]", password):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Password needs a number")
+
+
 @router.post("/register", response_model=Token)
 def register(user_in: UserCreate, db: Session = Depends(get_db)):
+    _validate_password(user_in.password)
     existing = db.query(User).filter(User.email == user_in.email).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
