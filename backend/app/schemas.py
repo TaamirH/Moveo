@@ -31,6 +31,7 @@ class ProfileOut(ProfileIn):
 class DashboardResponse(BaseModel):
     news: list
     prices: dict
+    prices_source: str
     ai_insight: str
     ai_source: str
     meme: dict

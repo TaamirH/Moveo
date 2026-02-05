@@ -125,7 +125,7 @@ async def get_prices(assets):
     ids = normalize_assets(assets)
     now = time.time()
     if _LAST_PRICES and (now - _LAST_FETCH_AT) < CACHE_SECONDS:
-        return _LAST_PRICES
+        return _LAST_PRICES, "cache"
 
     url = "https://api.coingecko.com/api/v3/simple/price"
     params = {"ids": ",".join(ids), "vs_currencies": "usd"}
@@ -143,6 +143,8 @@ async def get_prices(assets):
             data = resp.json()
         _LAST_PRICES = {coin: data.get(coin, {}) for coin in ids}
         _LAST_FETCH_AT = now
-        return _LAST_PRICES
+        return _LAST_PRICES, "coingecko"
     except httpx.HTTPError:
-        return _LAST_PRICES or {coin: {} for coin in ids}
+        if _LAST_PRICES:
+            return _LAST_PRICES, "cache"
+        return {coin: {} for coin in ids}, "fallback"

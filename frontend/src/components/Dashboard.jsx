@@ -23,7 +23,7 @@ const Dashboard = ({ onLogout, userName }) => {
     return <div className="card">Loading your dashboard...</div>;
   }
 
-  const { news, prices, ai_insight, ai_source, meme } = dashboard;
+  const { news, prices, prices_source, ai_insight, ai_source, meme } = dashboard;
 
   return (
     <div className="dashboard">
@@ -69,6 +69,7 @@ const Dashboard = ({ onLogout, userName }) => {
               </li>
             ))}
           </ul>
+          <p className="muted">Source: {prices_source}</p>
           <FeedbackButtons
             onVote={(vote) =>
               sendFeedback({ content_type: "prices", content_id: "prices", vote })
