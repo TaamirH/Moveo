@@ -50,8 +50,8 @@ Frontend `.env`:
 Every thumbs up/down is saved with the user, content type, and content id. Later on, this can be used to rank content per profile (show more of what was liked, less of what was disliked) and to tune topic weights over time without retraining the base model.
 
 ## AI Usage Summary
-I used an AI coding assistant as a helper. I still made the decisions and drove the direction. It helped me:
-- Interpret the assignment and plan the architecture.
-- Scaffold the FastAPI + React app and the core flows.
-- Hook up the external APIs and handle fallbacks.
-- Polish UX details and deployment steps.
+This project was built with the help of an AI coding assistant and directed by me. I used it to:
+- Analyze the assignment and design the architecture.
+- Scaffold the FastAPI + React app and core flows (auth, onboarding, dashboard).
+- Integrate external APIs (CryptoPanic, CoinGecko, OpenRouter) and add fallbacks.
+- Improve UX details (validation, source badges) and deployment readiness.
