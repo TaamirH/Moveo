@@ -36,8 +36,8 @@ Backend `.env`:
 - `ACCESS_TOKEN_EXPIRE_MINUTES`
 - `CRYPTOPANIC_TOKEN` (optional)
 - `COINGECKO_API_KEY` (optional, helps avoid rate limits)
-- `OPENROUTER_API_KEY` or `HUGGINGFACE_API_KEY` (optional)
-- `OPENROUTER_MODEL` / `HUGGINGFACE_MODEL` (optional)
+- `OPENROUTER_API_KEY` 
+- `OPENROUTER_MODEL` 
 
 Frontend `.env`:
 - `VITE_API_URL`
@@ -46,8 +46,12 @@ Frontend `.env`:
 - Frontend: Vercel (set `VITE_API_URL` to backend URL)
 - Backend: Render or Railway (set same env vars as local)
 
+## Bonus: Feedback for Future Model Improvements
+Every thumbs up/down is saved with the user, content type, and content id. Later on, this can be used to rank content per profile (show more of what was liked, less of what was disliked) and to tune topic weights over time without retraining the base model.
+
 ## AI Usage Summary
-This project was built with the help of an AI coding assistant. Prompts used:
-- Interpreted assignment requirements.
-- Generated a full-stack project scaffold (FastAPI + React).
-- Implemented auth, onboarding, dashboard aggregation, and feedback storage.
+I used an AI coding assistant as a helper. I still made the decisions and drove the direction. It helped me:
+- Interpret the assignment and plan the architecture.
+- Scaffold the FastAPI + React app and the core flows.
+- Hook up the external APIs and handle fallbacks.
+- Polish UX details and deployment steps.
